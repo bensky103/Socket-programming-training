@@ -1,3 +1,5 @@
+//epoll_chat_client
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +12,7 @@
 #include <stdbool.h>
 
 int main(){
-    printf("TCP_CLIENT.C\n");
+    printf("TCP_CHAT_CLIENT.C\n");
     printf("############\n");
 
     int client_fd;
@@ -43,13 +45,15 @@ int main(){
     }
     printf("Written message\n");
 
-    if(read(client_fd, buffer, 1024) < 0){
-        perror("Read failed");
-        close(client_fd);
-        exit(EXIT_FAILURE);
+    memset(buffer,0, sizeof(buffer));
+    while(true){
+        if(read(client_fd, buffer, 1024) <= 0){
+            
+            break;
+        }
     }
+    
     printf("Read done, buffer: %s\n", buffer);
-
     close(client_fd);
     printf("Closed connection");
     return 0;
